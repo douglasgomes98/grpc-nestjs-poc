@@ -3,6 +3,7 @@ import { ClientsModule } from '@nestjs/microservices';
 import { grpcClientOptions } from '../grpc-client.options';
 import { UsersController } from './users.controller';
 import { UsersResolver } from './users.resolver';
+import { UserServiceInMemory } from './users.service';
 
 @Module({
   imports: [
@@ -14,6 +15,12 @@ import { UsersResolver } from './users.resolver';
     ]),
   ],
   controllers: [UsersController],
-  providers: [UsersResolver],
+  providers: [
+    UsersResolver,
+    {
+      provide: 'UsersService',
+      useClass: UserServiceInMemory,
+    },
+  ],
 })
 export class UsersModule {}

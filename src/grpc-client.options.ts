@@ -5,7 +5,7 @@ import { join } from 'path';
 export const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:3002',
+    url: 'localhost:3002',
     package: 'users',
     protoPath: join(__dirname, './users/users.proto'),
     onLoadPackageDefinition: (pkg, server) => {
