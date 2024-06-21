@@ -2,12 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserType {
-  id: String!
+type AgencyType {
+  id: ID!
   name: String!
   email: String!
 }
 
+type UserType {
+  id: ID!
+  name: String!
+  email: String!
+  agency_id: String!
+}
+
 type Query {
+  listAgencies: [AgencyType!]!
+  getAgencyById(id: String!): AgencyType!
   listUsers: [UserType!]!
+  getUserById(id: String!): UserType!
 }

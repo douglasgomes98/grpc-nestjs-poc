@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
-import { grpcClientOptions } from '../grpc-client.options';
+import { userGrpcClientOptions } from './user.grpc-client.options';
 import { UsersController } from './users.controller';
 import { UsersResolver } from './users.resolver';
 import { UserServiceInMemory } from './users.service';
@@ -10,7 +10,7 @@ import { UserServiceInMemory } from './users.service';
     ClientsModule.register([
       {
         name: 'USERS_PACKAGE',
-        ...grpcClientOptions,
+        ...userGrpcClientOptions,
       },
     ]),
   ],

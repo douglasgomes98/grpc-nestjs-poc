@@ -1,6 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import { UsersService } from './users.interface';
+import { GetUserRequest, UsersService } from './users.interface';
 
 @Controller('users')
 export class UsersController {
@@ -16,5 +16,15 @@ export class UsersController {
   @GrpcMethod('UsersService', 'ListUsers')
   async rpcListUsers() {
     return this.usersService.listUsers();
+  }
+
+  @Get(':id')
+  async GetUser(id: string) {
+    return this.usersService.getUserById({ id });
+  }
+
+  @GrpcMethod('UsersService', 'GetUser')
+  async rpcGetUser({ id }: GetUserRequest) {
+    return this.usersService.getUserById({ id });
   }
 }

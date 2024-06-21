@@ -1,30 +1,53 @@
 import { Injectable } from '@nestjs/common';
-import { ListUsersResponse, UsersService } from './users.interface';
+import {
+  GetUserRequest,
+  GetUserResponse,
+  ListUsersResponse,
+  User,
+  UsersService,
+} from './users.interface';
 
 @Injectable()
 export class UserServiceInMemory implements UsersService {
+  private readonly users: User[] = [
+    {
+      id: '1',
+      name: 'Douglas',
+      email: 'douglas@gmail.com',
+      role: 'ROLE_TYPE_AGENT',
+      agency_id: '1',
+    },
+    {
+      id: '2',
+      name: 'Enrique',
+      email: 'enrique@gmail.com',
+      role: 'ROLE_TYPE_AGENCY_ADMIN',
+      agency_id: '2',
+    },
+    {
+      id: '3',
+      name: 'Pedro',
+      email: 'pedro@gmail.com',
+      role: 'ROLE_TYPE_ADMIN',
+      agency_id: '1',
+    },
+  ];
+
   listUsers(): ListUsersResponse {
     return {
-      users: [
-        {
-          id: '1',
-          name: 'John Doe',
-          email: 'johndoe@gmail.com',
-          role: 'ROLE_TYPE_AGENT',
-        },
-        {
-          id: '1',
-          name: 'John Doe',
-          email: 'johndoe@gmail.com',
-          role: 'ROLE_TYPE_AGENCY_ADMIN',
-        },
-        {
-          id: '1',
-          name: 'John Doe',
-          email: 'johndoe@gmail.com',
-          role: 'ROLE_TYPE_ADMIN',
-        },
-      ],
+      users: this.users,
+    };
+  }
+
+  getUserById({ id }: GetUserRequest): GetUserResponse {
+    const user = this.users.find((user) => user.id === id);
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return {
+      user,
     };
   }
 }
