@@ -11,5 +11,8 @@ export const grpcClientOptions: ClientOptions = {
     onLoadPackageDefinition: (pkg, server) => {
       new ReflectionService(pkg).addToServer(server);
     },
+    loader: {
+      includeDirs: [join(__dirname, './')],
+    },
   },
 };

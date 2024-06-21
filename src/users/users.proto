@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package users;
+import public "roles/roles.proto";
 
 service UsersService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
@@ -14,6 +15,8 @@ message User {
   string id = 1;
   string name = 2;
   string email = 3;
+
+  roles.RoleType role = 4;
 }
 
 message GetUserRequest {
